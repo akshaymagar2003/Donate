@@ -4,8 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.donate.MainActivity
 import com.example.donate.R
-import com.example.donate.Screens.LoggedIn
 import com.example.donate.databinding.ActivityMainBinding
 import com.example.donate.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -61,7 +61,7 @@ class RegisterActivity : AppCompatActivity() {
                         else
                         {
                             Toast.makeText(this,"User Already Registered", Toast.LENGTH_LONG).show()
-                            val intent= Intent(this,MainActivity::class.java)
+                            val intent= Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }
                     }

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:padding="15dp"
-    tools:context=".Screens.LoggedIn">
+    tools:context="com.example.loginapp.LoggedIn">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
