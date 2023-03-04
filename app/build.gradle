@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+
+//    id 'kotlin.extensions'
 }
 
 android {
@@ -31,7 +34,9 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
+        viewBinding=true
+        dataBinding = true
+
     }
 }
 
@@ -50,5 +55,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.4.2'
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
     implementation 'com.google.firebase:firebase-bom:28.0.1'
-//
+
 }
