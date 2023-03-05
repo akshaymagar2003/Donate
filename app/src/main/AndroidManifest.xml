@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,27 +12,30 @@
         android:theme="@style/Theme.Donate"
         tools:targetApi="31">
         <activity
+            android:name=".DonateFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DonateformActivity"
+            android:exported="false"
+            android:label="@string/title_activity_donateform"
+            android:theme="@style/Theme.Donate.NoActionBar" />
+        <activity
             android:name="com.example.donate.Screens.RegisterActivity"
             android:exported="false" />
         <activity
             android:name="com.example.donate.Screens.LoggedIn"
             android:exported="true"
-            android:label="@string/title_activity_logged_in"
+            android:label="@string/title_activity_logged_in">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.donate.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            >
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

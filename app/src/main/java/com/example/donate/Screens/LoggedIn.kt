@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import com.example.donate.Forms.DonateFormActivity
 import com.example.donate.MainActivity
 import com.example.donate.R
 import com.example.donate.databinding.ActivityLoggedInBinding
@@ -32,6 +33,11 @@ class LoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         binding.logout.setOnClickListener {
             sharedPref.edit().remove("Email").apply()
             var intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.floatingActionButton.setOnClickListener{view->
+            val intent=Intent(this, DonateFormActivity::class.java)
             startActivity(intent)
             finish()
         }
