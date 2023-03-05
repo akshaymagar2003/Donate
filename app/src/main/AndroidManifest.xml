@@ -11,12 +11,13 @@
         android:theme="@style/Theme.Donate"
         tools:targetApi="31">
         <activity
-            android:name="com.example.loginapp.RegisterActivity"
+            android:name="com.example.donate.Screens.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.loginapp.LoggedIn"
+            android:name="com.example.donate.Screens.LoggedIn"
             android:exported="true"
             android:label="@string/title_activity_logged_in"
+
             >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,9 @@
         </activity>
         <activity
             android:name="com.example.donate.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            >
 
         </activity>
     </application>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E84F1F"
-    tools:context="com.example.loginapp.RegisterActivity">
+    tools:context="com.example.donate.Screens.RegisterActivity">
 
     <EditText
         android:id="@+id/EmailRegister"

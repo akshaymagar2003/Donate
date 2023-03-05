@@ -1,12 +1,10 @@
-package com.example.loginapp
+package com.example.donate.Screens
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.donate.MainActivity
-import com.example.donate.R
-import com.example.donate.databinding.ActivityMainBinding
 import com.example.donate.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
