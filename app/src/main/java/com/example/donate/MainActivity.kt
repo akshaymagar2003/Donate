@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
         auth= FirebaseAuth.getInstance()
         binding.Register.setOnClickListener {
             var intent =Intent(this, RegisterActivity::class.java)
