@@ -7,7 +7,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import com.example.donate.Forms.DonateFormActivity
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import com.example.donate.Forms.AddItemFragment
+import com.example.donate.Forms.ItemViewFragment
 import com.example.donate.MainActivity
 import com.example.donate.R
 import com.example.donate.databinding.ActivityLoggedInBinding
@@ -17,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class LoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
     private lateinit var db: FirebaseFirestore
     private lateinit var binding:ActivityLoggedInBinding
+    private lateinit var navController: NavController
+
     var actionBarDrawerToggle: ActionBarDrawerToggle?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +32,17 @@ class LoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         setContentView(view)
         val sharedPref=this?.getPreferences(Context.MODE_PRIVATE)?:return
         val isLogin=sharedPref.getString("Email","1")
+
+//       val AddItemFragment=AddItemFragment()
+//        val fm:FragmentManager=supportFragmentManager
+//fm.beginTransaction().add(R.id.drawerLayout,AddItemFragment).commit()
+
+        val itemViewFragment =ItemViewFragment()
+        val fm:FragmentManager =supportFragmentManager
+        fm.beginTransaction().add(R.id.drawerLayout,itemViewFragment).commit()
+
+
+
         actionBarDrawerToggle=ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle!!)
         actionBarDrawerToggle!!.syncState()
@@ -36,11 +54,11 @@ class LoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             startActivity(intent)
             finish()
         }
-        binding.floatingActionButton.setOnClickListener{view->
-            val intent=Intent(this, DonateFormActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        binding.floatingActionButton.setOnClickListener{view->
+//            val intent=Intent(this, DonateFormActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
         if(isLogin=="1")
         {
             var email=intent.getStringExtra("email")
