@@ -1,20 +1,27 @@
 package com.example.donate.Forms
 
+import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import com.example.donate.Models.Order
 
 import com.example.donate.databinding.FragmentAddItemBinding
-import com.example.donate.firebaseAdd.Operation
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import kotlin.random.Random
 
 
 class AddItemFragment : Fragment() {
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +38,7 @@ class AddItemFragment : Fragment() {
     }
 
     private fun isEntryValid(): Boolean {
-        return Operation.isEntryValid(
+        return isEntryValid2(
             binding.itemName.text.toString(),
             binding.itemPrice.text.toString(),
             binding.itemCount.text.toString()
@@ -39,7 +46,7 @@ class AddItemFragment : Fragment() {
     }
     private fun addNewItem() {
         if (isEntryValid()) {
-            Operation.addNewItem(
+            addNewItem2(
                 binding.itemName.text.toString(),
                 binding.itemPrice.text.toString(),binding.itemCount.text.toString()
             )
@@ -62,6 +69,30 @@ class AddItemFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
         _binding = null
     }
+
+
+
+
+
+
+
 }
+fun addNewItem2(itemName: String, itemPrice: String, itemCount: String) {
+
+    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders")
+    val order = Order(itemName, itemPrice, itemCount)
+    databaseReference.child(Random.nextInt(1, 10000000000000.toInt()).toString()).setValue(order).addOnSuccessListener {
+        Log.d(ContentValues.TAG, "New order added")
+//        Toast.makeText(this,"Added Successfully",Toast.LENGTH_SHORT)
+    }
+
+}
+fun isEntryValid2(itemName: String, itemPrice: String, itemCount: String): Boolean {
+    if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+        return false
+    }
+    return true
+}
+
 
 

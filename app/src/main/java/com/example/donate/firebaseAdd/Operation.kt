@@ -1,19 +1,10 @@
 package com.example.donate.firebaseAdd
 
-class Operation {
+import android.content.ContentValues.TAG
+import android.util.Log
+import android.widget.Toast
+import com.example.donate.Models.Order
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
-
-    companion object {
-        fun isEntryValid(itemName: String, itemPrice: String, itemCount: String): Boolean {
-            if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
-                return false
-            }
-            return true
-        }
-
-        fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-
-        }
-    }
-}
