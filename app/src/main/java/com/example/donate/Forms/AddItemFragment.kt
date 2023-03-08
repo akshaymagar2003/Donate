@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlin.random.Random
 
-
+var p: Int=10
 class AddItemFragment : Fragment() {
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
@@ -81,8 +81,9 @@ fun addNewItem2(itemName: String, itemPrice: String, itemCount: String) {
 
     var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders")
     val order = Order(itemName, itemPrice, itemCount)
-    databaseReference.child(Random.nextInt(1, 10000000000000.toInt()).toString()).setValue(order).addOnSuccessListener {
+    databaseReference.child(p.toString()).setValue(order).addOnSuccessListener {
         Log.d(ContentValues.TAG, "New order added")
+        p++
 //        Toast.makeText(this,"Added Successfully",Toast.LENGTH_SHORT)
     }
 
