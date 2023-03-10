@@ -11,10 +11,10 @@
             android:id="@+id/floatingActionButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="300dp"
+            android:layout_marginLeft="275dp"
             android:layout_marginTop="600dp"
             android:clickable="true"
-            android:src="@drawable/custom_button" />
+            android:src="@drawable/baseline_menu_open_24" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

@@ -14,5 +14,8 @@
 
     <string name="hello_blank_fragment">Hello blank</string>
     <string name="currency_symbol">₹</string>
+    <string name="delete">Delete</string>
+    <string name="sell">Sell</string>
+    <string name="quantity">Quantity</string>
 
 </resources>

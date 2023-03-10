@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.donate.Models.Order
 import com.example.donate.R
 
-class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(private val onItemClick: (Order) -> Unit) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     private val orderList = ArrayList<Order>()
-
+//  var onItemClick: ((Order)->Unit)?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
        val itemView =LayoutInflater.from(parent.context).inflate(
            R.layout.user_order,
@@ -28,6 +28,11 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         holder.name.text=currentorder.name
         holder.price.text=currentorder.price
         holder.quantity.text=currentorder.quantity
+
+        holder.itemView.setOnClickListener {
+            onItemClick(currentorder)
+
+        }
     }
     fun updateOrderList(orderList: List<Order>){
 
