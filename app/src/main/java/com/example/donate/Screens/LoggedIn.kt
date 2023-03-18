@@ -1,55 +1,55 @@
 package com.example.donate.Screens
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavController
-
 import com.example.donate.Forms.ItemViewFragment
 import com.example.donate.MainActivity
 import com.example.donate.R
 import com.example.donate.databinding.ActivityLoggedInBinding
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
-class LoggedIn : AppCompatActivity(){
-    private lateinit var db: FirebaseFirestore
-    private lateinit var binding:ActivityLoggedInBinding
-    private lateinit var navController: NavController
 
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+class LoggedIn : AppCompatActivity() {
+    private lateinit var db: FirebaseFirestore
+
+    lateinit var binding : ActivityLoggedInBinding
+    lateinit var toggle: ActionBarDrawerToggle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoggedInBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
+        binding.apply {
+            toggle = ActionBarDrawerToggle(this@LoggedIn, drawerLayout, R.string.open, R.string.close)
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
 
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            navView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.firstItem -> {
+                        Toast.makeText(this@LoggedIn, "First Item Clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.secondtItem -> {
+                        Toast.makeText(this@LoggedIn, "Second Item Clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.thirdItem -> {
+                        Toast.makeText(this@LoggedIn, "third Item Clicked", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                true
+            }
+
+        }
         val sharedPref=this?.getPreferences(Context.MODE_PRIVATE)?:return
         val isLogin=sharedPref.getString("Email","1")
 
-//       val AddItemFragment=AddItemFragment()
-//        val fm:FragmentManager=supportFragmentManager
-//fm.beginTransaction().add(R.id.drawerLayout,AddItemFragment).commit()
-
-
-
-
-
-
-        val itemViewFragment =ItemViewFragment()
-        val fm:FragmentManager =supportFragmentManager
-        fm.beginTransaction().add(R.id.drawerLayout,itemViewFragment).commit()
-
-//        binding.floatingActionButton.setOnClickListener{view->
-//            val intent=Intent(this, DonateFormActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
         if(isLogin=="1")
         {
             var email=intent.getStringExtra("email")
@@ -63,7 +63,7 @@ class LoggedIn : AppCompatActivity(){
                 }
             }
             else{
-                var intent = Intent(this,MainActivity::class.java)
+                var intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -72,32 +72,17 @@ class LoggedIn : AppCompatActivity(){
         {
             setText(isLogin)
         }
-        actionBarDrawerToggle=ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
-        actionBarDrawerToggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        binding.logout.setOnClickListener {
-//            sharedPref.edit().remove("Email").apply()
-//            var intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
 
-        binding.navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.home->Toast.makeText(this,"Rate Us",Toast.LENGTH_SHORT).show()
 
-//                R.id.logout->{
-//
-//                }
-            }
-            true
-        }
+
 
     }
 
     private fun setText(email:String?)
-    {
+    {   val itemViewFragment =ItemViewFragment()
+        val fm:FragmentManager =supportFragmentManager
+        fm.beginTransaction().add(R.id.drawerLayout,itemViewFragment).commit()
+
         db= FirebaseFirestore.getInstance()
         if (email != null) {
             db.collection("USERS").document(email).get()
@@ -116,15 +101,9 @@ class LoggedIn : AppCompatActivity(){
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if(actionBarDrawerToggle!!.onOptionsItemSelected(item)){true}
-      else  super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-
-        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
-            binding.drawerLayout.close()
+        if (toggle.onOptionsItemSelected(item)){
+            true
         }
-        else super.onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 }

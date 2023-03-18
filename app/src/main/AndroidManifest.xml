@@ -17,7 +17,7 @@
             android:name="com.example.donate.Screens.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.donate.Screens.LoggedIn"
+            android:name=".Screens.LoggedIn"
             android:exported="true"
             android:label="@string/title_activity_logged_in">
             <intent-filter>
