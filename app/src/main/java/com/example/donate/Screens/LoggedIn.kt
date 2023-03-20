@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentManager
 import com.example.donate.Forms.ItemViewFragment
 import com.example.donate.MainActivity
@@ -22,8 +23,14 @@ class LoggedIn : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val itemViewFragment =ItemViewFragment()
+        val fm:FragmentManager =supportFragmentManager
+        fm.beginTransaction().add(R.id.Framelayout,itemViewFragment).commit()
+
+
         binding.apply {
             toggle = ActionBarDrawerToggle(this@LoggedIn, drawerLayout, R.string.open, R.string.close)
             drawerLayout.addDrawerListener(toggle)
@@ -33,14 +40,21 @@ class LoggedIn : AppCompatActivity() {
 
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.firstItem -> {
-                        Toast.makeText(this@LoggedIn, "First Item Clicked", Toast.LENGTH_SHORT).show()
+                    R.id.home -> {
+                        Toast.makeText(this@LoggedIn, "Home Clicked", Toast.LENGTH_SHORT).show()
                     }
-                    R.id.secondtItem -> {
-                        Toast.makeText(this@LoggedIn, "Second Item Clicked", Toast.LENGTH_SHORT).show()
+                    R.id.feedback -> {
+                        Toast.makeText(this@LoggedIn, "Feed back Clicked", Toast.LENGTH_SHORT).show()
                     }
-                    R.id.thirdItem -> {
-                        Toast.makeText(this@LoggedIn, "third Item Clicked", Toast.LENGTH_SHORT).show()
+                    R.id.help-> {
+                        Toast.makeText(this@LoggedIn, "Help Clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.aboutus->{
+                        Toast.makeText(this@LoggedIn,"about Us clicked",Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.logout->{
+                       fuckoff()
+
                     }
                 }
                 true
@@ -78,17 +92,23 @@ class LoggedIn : AppCompatActivity() {
 
     }
 
+    private fun fuckoff() {
+        val sharedPref=this?.getPreferences(Context.MODE_PRIVATE)?:return
+        sharedPref.edit().remove("Email").apply()
+        var intent = Intent(this@LoggedIn, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun setText(email:String?)
-    {   val itemViewFragment =ItemViewFragment()
-        val fm:FragmentManager =supportFragmentManager
-        fm.beginTransaction().add(R.id.drawerLayout,itemViewFragment).commit()
+    {
 
         db= FirebaseFirestore.getInstance()
         if (email != null) {
             db.collection("USERS").document(email).get()
                 .addOnSuccessListener {
                         tasks->
-//                    binding.name.text=tasks.get("Name").toString()
+                    binding.Username.text=tasks.get("Name").toString()
 //                    binding.phone.text=tasks.get("Phone").toString()
 //                    binding.emailLog.text=tasks.get("email").toString()
 //                    binding.name.text =tasks.get("Name").toString()
@@ -106,4 +126,11 @@ class LoggedIn : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-}
+    override fun onBackPressed() {
+
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.close()
+        } else super.onBackPressed()
+
+    }
+    }

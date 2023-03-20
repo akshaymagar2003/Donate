@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/teal_700">
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sample Title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/white"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/aboutus"
+        app:civ_border_color="#FA4C16"
+        app:civ_border_width="2dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

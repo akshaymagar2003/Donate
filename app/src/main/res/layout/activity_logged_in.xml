@@ -7,6 +7,13 @@
     android:id="@+id/drawerLayout"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/Framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
@@ -14,5 +21,17 @@
         app:menu="@menu/nav_drawer"
         app:headerLayout="@layout/header_layout_drawer"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"/>
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/Username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="140dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#ED0505"
+            android:textSize="16sp" />
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
