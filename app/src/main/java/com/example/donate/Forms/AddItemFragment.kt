@@ -52,7 +52,7 @@ class AddItemFragment : Fragment() {
             )
         }
         val fr = requireFragmentManager().beginTransaction()
-        fr.replace(com.example.donate.R.id.drawerLayout, ItemViewFragment())
+        fr.replace(com.example.donate.R.id.Framelayout, ItemViewFragment())
         fr.commit()
 
     }

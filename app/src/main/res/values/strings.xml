@@ -17,5 +17,6 @@
     <string name="delete">Delete</string>
     <string name="sell">Sell</string>
     <string name="quantity">Quantity</string>
+    <string name="Update">Update</string>
 
 </resources>

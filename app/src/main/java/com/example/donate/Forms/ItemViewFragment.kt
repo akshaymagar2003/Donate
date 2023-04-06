@@ -38,7 +38,7 @@ class ItemViewFragment : Fragment() {
         val view = binding.root
         binding.floatingActionButton2.setOnClickListener{
             val fr = requireFragmentManager().beginTransaction()
-            fr.replace(com.example.donate.R.id.drawerLayout, AddItemFragment())
+            fr.replace(com.example.donate.R.id.Framelayout, AddItemFragment())
             fr.commit()
         }
         return view
@@ -72,7 +72,7 @@ class ItemViewFragment : Fragment() {
             val fragment=Item_Detail()
             fragment.arguments=bundle
             val fr = requireFragmentManager().beginTransaction()
-            fr.replace(com.example.donate.R.id.drawerLayout, fragment,null).addToBackStack(null)
+            fr.replace(com.example.donate.R.id.Framelayout, fragment,null).addToBackStack(null)
             fr.commit()
                   Toast.makeText(requireContext(), "${item.name}", Toast.LENGTH_SHORT).show()
     }
