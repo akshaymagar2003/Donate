@@ -36,8 +36,8 @@ class Item_Detail : Fragment() {
         val inputData= args?.getString("data")
         Item =Gson().fromJson(inputData,Order::class.java)
        Item?.let {
-           textView.setText(it.name)
-           textView2.setText(it.price)
+           textView.setText(it.TO)
+           textView2.setText(it.Food_Name)
 
            textView3.setText(it.quantity)
        }

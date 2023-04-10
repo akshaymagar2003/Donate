@@ -74,7 +74,7 @@ class ItemViewFragment : Fragment() {
             val fr = requireFragmentManager().beginTransaction()
             fr.replace(com.example.donate.R.id.Framelayout, fragment,null).addToBackStack(null)
             fr.commit()
-                  Toast.makeText(requireContext(), "${item.name}", Toast.LENGTH_SHORT).show()
+//                  Toast.makeText(requireContext(), "${item.name}", Toast.LENGTH_SHORT).show()
     }
     override fun onDestroyView() {
         super.onDestroyView()

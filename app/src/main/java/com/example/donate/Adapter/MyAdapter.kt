@@ -25,8 +25,8 @@ class MyAdapter(private val onItemClick: (Order) -> Unit) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
          val currentorder = orderList[position]
-        holder.name.text=currentorder.name
-        holder.price.text=currentorder.price
+        holder.name.text=currentorder.TO
+        holder.price.text=currentorder.Food_Name
         holder.quantity.text=currentorder.quantity
 
         holder.itemView.setOnClickListener {
