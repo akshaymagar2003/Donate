@@ -53,7 +53,7 @@ class LoggedIn : AppCompatActivity() {
                         Toast.makeText(this@LoggedIn,"about Us clicked",Toast.LENGTH_SHORT).show()
                     }
                     R.id.logout->{
-                       fuckoff()
+                       Logout()
 
                     }
                 }
@@ -92,8 +92,8 @@ class LoggedIn : AppCompatActivity() {
 
     }
 
-    private fun fuckoff() {
-        val sharedPref=this?.getPreferences(Context.MODE_PRIVATE)?:return
+    private fun Logout() {
+        val sharedPref= this.getPreferences(Context.MODE_PRIVATE) ?:return
         sharedPref.edit().remove("Email").apply()
         var intent = Intent(this@LoggedIn, MainActivity::class.java)
         startActivity(intent)

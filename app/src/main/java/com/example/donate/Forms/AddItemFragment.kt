@@ -3,6 +3,7 @@ package com.example.donate.Forms
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +25,8 @@ class AddItemFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
 
     }
@@ -45,10 +48,13 @@ class AddItemFragment : Fragment() {
         )
     }
     private fun addNewItem() {
+        val preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val value = preferences.getString("Email", "error")
+        Log.d("helping","$value")
         if (isEntryValid()) {
             addNewItem2(
                 binding.itemName.text.toString(),
-                binding.itemPrice.text.toString(),binding.itemCount.text.toString()
+                binding.itemPrice.text.toString(),binding.itemCount.text.toString(),value.toString()
             )
         }
         val fr = requireFragmentManager().beginTransaction()
@@ -77,14 +83,14 @@ class AddItemFragment : Fragment() {
 
 
 }
-fun addNewItem2(itemName: String, itemPrice: String, itemCount: String) {
-
-    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders")
+fun addNewItem2(itemName: String, itemPrice: String, itemCount: String,value:String) {
+    val encodedEmail = value.replace(".", "_dot_")
+    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders").child(encodedEmail)
     val order = Order(itemName, itemPrice, itemCount)
     databaseReference.child(p.toString()).setValue(order).addOnSuccessListener {
         Log.d(ContentValues.TAG, "New order added")
         p++
-//        Toast.makeText(this,"Added Successfully",Toast.LENGTH_SHORT)
+//        Toast.makeText(,"Added Successfully",Toast.LENGTH_SHORT)
     }
 
 }

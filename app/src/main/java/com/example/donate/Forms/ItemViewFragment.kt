@@ -1,6 +1,8 @@
 package com.example.donate.Forms
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donate.Adapter.MyAdapter
 import com.example.donate.Models.Order
 import com.example.donate.Models.UserViewModel
+import com.example.donate.Repository.UserViewModelFactory
 
 import com.example.donate.databinding.FragmentItemViewBinding
 import com.google.gson.Gson
@@ -23,11 +26,6 @@ class ItemViewFragment : Fragment() {
     private var _binding: FragmentItemViewBinding? = null
     private val binding get() = _binding!!
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +48,10 @@ class ItemViewFragment : Fragment() {
         binding.recycler.setHasFixedSize(true)
         adapter= MyAdapter(::onItemClicked)
         binding.recycler.adapter= adapter
-        viewModel= ViewModelProvider(this).get(UserViewModel::class.java)
+        val preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val value = preferences.getString("Email", "error")
+        Log.d("testing","$value")
+        viewModel= ViewModelProvider(this, UserViewModelFactory(value.toString())).get(UserViewModel::class.java)
         viewModel.allOrders.observe(viewLifecycleOwner, Observer {
             adapter.updateOrderList(it)
         })
