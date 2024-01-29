@@ -18,11 +18,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlin.random.Random
 
-var p: Int=10
+
 class AddItemFragment : Fragment() {
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
-
+//    private val sharedPref2=requireActivity().getPreferences(Context.MODE_PRIVATE)
+  var p: Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -67,6 +68,7 @@ class AddItemFragment : Fragment() {
         binding.saveAction.setOnClickListener {
             addNewItem()
         }
+//        val sharedPref2=requireActivity().getPreferences(Context.MODE_PRIVATE)?:return
     }
     override fun onDestroyView() {
         super.onDestroyView()
@@ -78,28 +80,68 @@ class AddItemFragment : Fragment() {
 
 
 
+    fun setMaxOrderId(value:String,p:Int){
+//    val encodedEmail = value.replace(".", "_dot_")
+//    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders").child(encodedEmail)
+//    databaseReference.child("maxorderid").setValue(p)
+        val sharedPref=requireActivity().getPreferences(Context.MODE_PRIVATE)?:return
+
+        with(sharedPref.edit())
+        {
+            putString("max$value",p.toString())
+            apply()
+        }
+
+    }
+    fun getMaxOrderId(value:String):Int{
+//    val encodedEmail = value.replace(".", "_dot_")
+//    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders").child(encodedEmail)
+//    databaseReference.child("maxorderid").setValue(p)
+
+//        val p=sharedPref2.getString("max$value","10")
+        if (p != null) {
+            return p.toInt()
+        }
+        return 0
+    }
 
 
+    fun addNewItem2(itemName: String, itemPrice: String, itemCount: String,value:String) {
+        val encodedEmail = value.replace(".", "_dot_")
+        var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders").child(encodedEmail)
+        val order = Order(itemName, itemPrice, itemCount)
+        val sharedPref2=requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val pq=sharedPref2.getString("max$value","10")
+        if (pq != null) {
+          p=pq.toInt()
+        }else{
+            p=0
+        }
 
-
-}
-fun addNewItem2(itemName: String, itemPrice: String, itemCount: String,value:String) {
-    val encodedEmail = value.replace(".", "_dot_")
-    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("orders").child(encodedEmail)
-    val order = Order(itemName, itemPrice, itemCount)
-    databaseReference.child(p.toString()).setValue(order).addOnSuccessListener {
-        Log.d(ContentValues.TAG, "New order added")
-        p++
+        databaseReference.child(p.toString()).setValue(order).addOnSuccessListener {
+            Log.d(ContentValues.TAG, "New order added")
+            p++
 //        Toast.makeText(,"Added Successfully",Toast.LENGTH_SHORT)
-    }
+            Log.d("hollow", "$p")
+            with(sharedPref2.edit())
+            {
+                putString("max$value", p.toString())
+                apply()
 
-}
-fun isEntryValid2(itemName: String, itemPrice: String, itemCount: String): Boolean {
-    if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
-        return false
+            }
+        }
     }
-    return true
+    fun isEntryValid2(itemName: String, itemPrice: String, itemCount: String): Boolean {
+        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+            return false
+        }
+        return true
+    }
 }
+
+
+
+
 
 
 

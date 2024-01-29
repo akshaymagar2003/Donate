@@ -30,10 +30,11 @@ class UserRepository (val email: String){
                           val _userlist: List<Order> =snapshot.children.map{
                               dataSnapshot ->dataSnapshot.getValue(Order::class.java) !!
                           }
+                    Log.d("hollow2","swag340")
 
                     orderlist.postValue(_userlist)
                 }catch( e:Exception ){
-
+                      Log.d("hollow","swag340")
                 }
             }
 
