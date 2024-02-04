@@ -11,7 +11,7 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/aboutus"
+        android:src="@drawable/man"
         app:civ_border_color="#FA4C16"
         app:civ_border_width="2dp" />
 

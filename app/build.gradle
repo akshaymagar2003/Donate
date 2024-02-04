@@ -63,6 +63,7 @@ dependencies {
     implementation 'androidx.core:core:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.4.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
+    implementation "de.hdodenhof:circleimageview:3.0.0"
 
 }
 
