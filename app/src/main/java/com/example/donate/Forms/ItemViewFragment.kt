@@ -34,11 +34,7 @@ class ItemViewFragment : Fragment() {
     ): View? {
         _binding = FragmentItemViewBinding.inflate(inflater, container, false)
         val view = binding.root
-        binding.floatingActionButton2.setOnClickListener{
-            val fr = requireFragmentManager().beginTransaction()
-            fr.replace(com.example.donate.R.id.Framelayout, AddItemFragment())
-            fr.commit()
-        }
+
         return view
     }
 
@@ -73,7 +69,7 @@ class ItemViewFragment : Fragment() {
             val fragment=Item_Detail()
             fragment.arguments=bundle
             val fr = requireFragmentManager().beginTransaction()
-            fr.replace(com.example.donate.R.id.Framelayout, fragment,null).addToBackStack(null)
+            fr.replace(com.example.donate.R.id.frame_layout, fragment,null).addToBackStack(null)
             fr.commit()
 //                  Toast.makeText(requireContext(), "${item.name}", Toast.LENGTH_SHORT).show()
     }

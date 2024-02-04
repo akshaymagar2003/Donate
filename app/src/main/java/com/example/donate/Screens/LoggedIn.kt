@@ -1,14 +1,20 @@
 package com.example.donate.Screens
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.donate.Forms.ItemViewFragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.NavController
+import androidx.navigation.ui.AppBarConfiguration
+import com.example.donate.Forms.*
 import com.example.donate.MainActivity
 import com.example.donate.R
 import com.example.donate.databinding.ActivityLoggedInBinding
@@ -17,18 +23,37 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class LoggedIn : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
-
+    private lateinit var navController: NavController
     lateinit var binding : ActivityLoggedInBinding
     lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val itemViewFragment =ItemViewFragment()
-        val fm:FragmentManager =supportFragmentManager
-        fm.beginTransaction().add(R.id.Framelayout,itemViewFragment).commit()
+        binding.bottomNavigationView.background = null
+        binding.bottomNavigationView.menu.getItem(2).isEnabled = false
+
+
+     binding.fab.setOnClickListener {
+         replaceFragment(AddItemFragment())
+     }
+        replaceFragment(ItemViewFragment())
+//
+//
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> replaceFragment(ItemViewFragment())
+                R.id.search -> replaceFragment(SearchFragment())
+                R.id.settings -> replaceFragment(SettingFragment())
+                R.id.profile -> replaceFragment(ProfileFragment())
+                R.id.placeholder->replaceFragment(AddItemFragment())
+            }
+            true
+        }
+
 
 
         binding.apply {
@@ -92,6 +117,8 @@ class LoggedIn : AppCompatActivity() {
 
     }
 
+
+
     private fun Logout() {
         val sharedPref= this.getPreferences(Context.MODE_PRIVATE) ?:return
         sharedPref.edit().remove("Email").apply()
@@ -118,7 +145,12 @@ class LoggedIn : AppCompatActivity() {
 
     }
 
-
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)){
