@@ -7,13 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.donate.Adapter.MyAdapter
 import com.example.donate.Models.Order
 import com.example.donate.Models.UserViewModel
+import com.example.donate.R
 import com.example.donate.Repository.UserViewModelFactory
 
 import com.example.donate.databinding.FragmentItemViewBinding
@@ -25,7 +29,7 @@ lateinit var adapter:MyAdapter
 class ItemViewFragment : Fragment() {
     private var _binding: FragmentItemViewBinding? = null
     private val binding get() = _binding!!
-
+    val imageList = ArrayList<SlideModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +38,7 @@ class ItemViewFragment : Fragment() {
     ): View? {
         _binding = FragmentItemViewBinding.inflate(inflater, container, false)
         val view = binding.root
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
         return view
     }
 
@@ -44,6 +48,17 @@ class ItemViewFragment : Fragment() {
         binding.recycler.setHasFixedSize(true)
         adapter= MyAdapter(::onItemClicked)
         binding.recycler.adapter= adapter
+
+
+        imageList.add(SlideModel(R.drawable.image1,ScaleTypes.FIT))
+        imageList.add(SlideModel(R.drawable.image2,ScaleTypes.FIT))
+        imageList.add(SlideModel(R.drawable.image3,ScaleTypes.FIT))
+        imageList.add(SlideModel(R.drawable.image4,ScaleTypes.FIT))
+        binding.imageSlider.setImageList(imageList,ScaleTypes.FIT)
+
+
+
+
         val preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val value = preferences.getString("Email", "error")
         Log.d("testing","$value")
